@@ -182,7 +182,6 @@ type JestJQueryMatchersType = {
   toHaveDescendantWithText(sel: string, text: string | RegExp): void
 };
 
-
 // Jest Extended Matchers: https://github.com/jest-community/jest-extended
 type JestExtendedMatchersType = {
   /**
