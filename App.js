@@ -25,11 +25,53 @@
  */
 
 import React from 'react'
+import { AppLoading } from 'expo'
+import { cacheFonts, cacheImages } from 'util/cache'
 import AppWithoutStore from './app/App'
 
 type Props = {}
-export default class App extends React.Component<Props> {
+type State = {
+  isReady: boolean
+}
+export default class App extends React.Component<Props, State> {
+  constructor () {
+    super()
+    this.state = {
+      isReady: false
+    }
+  }
+
+  /**
+   * Caches images and fonts
+   */
+  static async _loadAssetsAsync () {
+    const imageAssets = cacheImages([
+      // require('assets/logo.png'),
+    ])
+    const fontAssets = cacheFonts([
+      {Roboto: require('native-base/Fonts/Roboto.ttf')},
+      {Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')},
+      {Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')},
+      {FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf')}
+    ])
+
+    await Promise.all([...imageAssets, ...fontAssets])
+  }
+
+  _setReady = () => {
+    this.setState({isReady: true})
+  }
+
   render () {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={App._loadAssetsAsync}
+          onFinish={this._setReady}
+          onError={console.warn}
+        />
+      )
+    }
     return (
       <AppWithoutStore />
     )

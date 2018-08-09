@@ -24,31 +24,19 @@
  *  @format
  */
 
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Text } from 'native-base'
-import { Container, Content } from 'components'
+import { Asset, Font } from 'expo'
+import { Image } from 'react-native'
 
-type Props = {}
-export default class App extends React.Component<Props> {
-  render () {
-    return (
-      <Container>
-        <Content style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
-          <Text>Changes you make will automatically reload.</Text>
-          <Text>Shake your phone to open the developer menu.</Text>
-        </Content>
-      </Container>
-    )
-  }
+export function cacheImages (images) {
+  return images.map(image => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image)
+    } else {
+      return Asset.fromModule(image).downloadAsync()
+    }
+  })
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+export function cacheFonts (fonts) {
+  return fonts.map(font => Font.loadAsync(font))
+}
