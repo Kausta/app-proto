@@ -28,6 +28,7 @@ import React from 'react'
 import { AppLoading } from 'expo'
 import { Provider } from 'mobx-react/native'
 
+import initMobx from 'util/initMobx'
 import { cacheFonts, cacheImages } from 'util/cache'
 import AppWithoutStore from './app/App'
 import stores from 'store'
@@ -39,6 +40,7 @@ type State = {
 export default class App extends React.Component<Props, State> {
   constructor () {
     super()
+    initMobx()
     this.state = {
       isReady: false
     }
