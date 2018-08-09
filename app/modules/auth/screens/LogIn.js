@@ -25,13 +25,30 @@
  */
 
 import React from 'react'
-import RootNavigator from 'navigation'
+import { StyleSheet } from 'react-native'
+import { Text } from 'native-base'
+import { Container, Content } from 'components'
 
 type Props = {}
-export default class App extends React.Component<Props> {
+export default class LogIn extends React.Component<Props> {
   render () {
     return (
-      <RootNavigator/>
+      <Container>
+        <Content style={styles.container}>
+          <Text>Open up App.js to start working on your app!</Text>
+          <Text>Changes you make will automatically reload.</Text>
+          <Text>Shake your phone to open the developer menu.</Text>
+        </Content>
+      </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})

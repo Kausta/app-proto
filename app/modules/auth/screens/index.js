@@ -24,14 +24,4 @@
  *  @format
  */
 
-import React from 'react'
-import RootNavigator from 'navigation'
-
-type Props = {}
-export default class App extends React.Component<Props> {
-  render () {
-    return (
-      <RootNavigator/>
-    )
-  }
-}
+export { default as LogIn } from './LogIn'

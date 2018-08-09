@@ -24,14 +24,14 @@
  *  @format
  */
 
-import React from 'react'
-import RootNavigator from 'navigation'
+import { createSwitchNavigator } from 'react-navigation'
+import AuthNavigator from './AuthNavigator'
 
-type Props = {}
-export default class App extends React.Component<Props> {
-  render () {
-    return (
-      <RootNavigator/>
-    )
+export default createSwitchNavigator(
+  {
+    Auth: AuthNavigator
+  },
+  {
+    initialRouteName: 'Auth'
   }
-}
+)

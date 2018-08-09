@@ -24,14 +24,10 @@
  *  @format
  */
 
-import React from 'react'
-import RootNavigator from 'navigation'
+import * as screens from './screens'
+import * as components from './components'
 
-type Props = {}
-export default class App extends React.Component<Props> {
-  render () {
-    return (
-      <RootNavigator/>
-    )
-  }
+export {
+  screens,
+  components
 }

@@ -24,14 +24,19 @@
  *  @format
  */
 
-import React from 'react'
-import RootNavigator from 'navigation'
+import { createStackNavigator } from 'react-navigation'
+import { screens } from 'modules/auth'
 
-type Props = {}
-export default class App extends React.Component<Props> {
-  render () {
-    return (
-      <RootNavigator/>
-    )
+export default createStackNavigator(
+  {
+    LogIn: {
+      screen: screens.LogIn,
+      navigationOptions: {
+        header: null
+      }
+    }
+  },
+  {
+    initialRouteName: 'LogIn'
   }
-}
+)
