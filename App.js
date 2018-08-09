@@ -26,8 +26,11 @@
 
 import React from 'react'
 import { AppLoading } from 'expo'
+import { Provider } from 'mobx-react/native'
+
 import { cacheFonts, cacheImages } from 'util/cache'
 import AppWithoutStore from './app/App'
+import stores from 'store'
 
 type Props = {}
 type State = {
@@ -73,7 +76,9 @@ export default class App extends React.Component<Props, State> {
       )
     }
     return (
-      <AppWithoutStore />
+      <Provider {...stores}>
+        <AppWithoutStore />
+      </Provider>
     )
   }
 }

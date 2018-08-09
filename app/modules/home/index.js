@@ -26,8 +26,10 @@
 
 import * as screens from './screens'
 import * as components from './components'
+import store from './store'
 
 export {
   screens,
-  components
+  components,
+  store
 }

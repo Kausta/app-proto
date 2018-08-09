@@ -25,17 +25,30 @@
  */
 
 import React from 'react'
+import { autobind } from 'core-decorators'
+import { observer, inject } from 'mobx-react/native'
+import AuthStore from '../store'
 import { StyleSheet } from 'react-native'
 import { Text } from 'native-base'
 import { Container, Content } from 'components'
 
-type Props = {}
+type Props = {
+  auth: AuthStore
+}
+@autobind
+@inject(stores => ({
+  auth: stores.auth
+}))
+@observer
 export default class LogIn extends React.Component<Props> {
+  static defaultProps = {
+    auth: null
+  }
   render () {
     return (
       <Container>
         <Content style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
+          <Text>Open up App.js to start working on {this.props.auth.name}!</Text>
           <Text>Changes you make will automatically reload.</Text>
           <Text>Shake your phone to open the developer menu.</Text>
         </Content>

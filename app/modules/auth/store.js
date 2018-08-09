@@ -24,19 +24,10 @@
  *  @format
  */
 
-import { Asset, Font } from 'expo'
-import { Image } from 'react-native'
+import { autobind } from 'core-decorators'
+import { observable } from 'mobx'
 
-export function cacheImages (images: Array<string | any>) : Array<Promise<void>> {
-  return images.map(image => {
-    if (typeof image === 'string') {
-      return Image.prefetch(image)
-    } else {
-      return Asset.fromModule(image).downloadAsync()
-    }
-  })
-}
-
-export function cacheFonts (fonts: Array<Object>) : Array<Promise<void>> {
-  return fonts.map(font => Font.loadAsync(font))
+@autobind
+export default class AuthStore {
+  @observable name = 'proto-app'
 }
