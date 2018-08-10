@@ -44,6 +44,7 @@ export default class LogIn extends React.Component<Props> {
   static defaultProps = {
     auth: null
   }
+
   render () {
     return (
       <Container>
