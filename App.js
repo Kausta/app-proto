@@ -31,16 +31,17 @@ import { Provider } from 'mobx-react/native'
 import initMobx from 'util/initMobx'
 import { cacheFonts, cacheImages } from 'util/cache'
 import AppWithoutStore from './app/App'
-import stores from 'store'
 
 type Props = {}
 type State = {
   isReady: boolean
 }
 export default class App extends React.Component<Props, State> {
+  stores = undefined
+
   constructor () {
     super()
-    initMobx()
+    this.stores = initMobx()
     this.state = {
       isReady: false
     }
@@ -78,7 +79,7 @@ export default class App extends React.Component<Props, State> {
       )
     }
     return (
-      <Provider {...stores}>
+      <Provider {...this.stores}>
         <AppWithoutStore />
       </Provider>
     )

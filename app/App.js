@@ -26,12 +26,39 @@
 
 import React from 'react'
 import RootNavigator from 'navigation'
+import { autobind } from 'core-decorators'
+import { observer, inject } from 'mobx-react'
+import AuthStore from 'modules/auth/store'
+import NavigationService from 'navigation/NavigationService'
 
-type Props = {}
+type Props = {
+  auth: any | AuthStore
+}
+@autobind
+@inject(stores => ({
+  auth: stores.auth
+}))
+@observer
 export default class App extends React.Component<Props> {
+  static defaultProps = {
+    auth: null
+  }
+
+  componentDidMount () {
+    // Initialize auth and then navigate to proper page
+    this.props.auth.initAuth().then(() => {
+      NavigationService.navigate(this.props.auth.isAuthenticated ? 'Home' : 'Auth')
+    })
+  }
+
+  registerNavService = (navigator: any) => {
+    // Register top level navigator for navigation in different classes including this
+    NavigationService.setTopLevelNavigator(navigator)
+  }
+
   render () {
     return (
-      <RootNavigator />
+      <RootNavigator ref={this.registerNavService} />
     )
   }
 }

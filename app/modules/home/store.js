@@ -23,3 +23,10 @@
  *  @flow
  *  @format
  */
+
+import { autobind } from 'core-decorators'
+
+@autobind
+export default class HomeStore {
+
+}

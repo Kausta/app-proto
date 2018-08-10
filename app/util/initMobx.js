@@ -25,8 +25,9 @@
  */
 
 import { configure, spy } from 'mobx'
+import stores from 'store'
 
-const initMobx = () => {
+const initMobx = (logEverything?: boolean = false) => {
   // Enforce actions for better manageability
   configure({
     enforceActions: true
@@ -34,13 +35,20 @@ const initMobx = () => {
 
   // Register development logger
   spy((event) => {
-    switch (event.type) {
-      case 'action':
-        console.log(`${event.name} with args: ${event.arguments}`)
-        break
-      default:
-        break
+    if (event.type === 'action') {
+      console.log(`${event.name} with args: ${event.arguments}`)
+    } else if (logEverything) {
+      console.log(event.toString())
     }
   })
+
+  // Create store objects from classes
+  // We want to leave access to stores for typing purposes
+  const storeInstances = {}
+  for (const key in stores) {
+    const Store = stores[key]
+    storeInstances[key] = new Store()
+  }
+  return storeInstances
 }
 export default initMobx

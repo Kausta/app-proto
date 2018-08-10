@@ -25,32 +25,17 @@
  */
 
 import React from 'react'
-import { autobind } from 'core-decorators'
-import { observer, inject } from 'mobx-react/native'
-import AuthStore from '../store'
 import { StyleSheet } from 'react-native'
-import { Text } from 'native-base'
+import { Spinner } from 'native-base'
 import { Container, Content } from 'components'
 
-type Props = {
-  auth: any | AuthStore
-}
-@autobind
-@inject(stores => ({
-  auth: stores.auth
-}))
-@observer
-export default class LogIn extends React.Component<Props> {
-  static defaultProps = {
-    auth: null
-  }
+type Props = {}
+export default class Splash extends React.Component<Props> {
   render () {
     return (
       <Container>
-        <Content style={styles.container}>
-          <Text>Open up App.js to start working on {this.props.auth.name}!</Text>
-          <Text>Changes you make will automatically reload.</Text>
-          <Text>Shake your phone to open the developer menu.</Text>
+        <Content style={styles.contentStyle}>
+          <Spinner />
         </Content>
       </Container>
     )
@@ -58,10 +43,9 @@ export default class LogIn extends React.Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentStyle: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

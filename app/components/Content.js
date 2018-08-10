@@ -25,14 +25,18 @@
  */
 
 import React from 'react'
-import { Content } from 'native-base'
+import { Content as NBContent } from 'native-base'
 
 type Props = {
-  style: any
+  style?: any
 }
-export default (props: Props) => {
+let Content = (props: Props) => {
   const {style, ...rest} = props
   return (
-    <Content contentContainerStyle={style} {...rest} />
+    <NBContent contentContainerStyle={style} {...rest} />
   )
 }
+Content.defaultProps = {
+  style: {}
+}
+export default Content

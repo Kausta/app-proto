@@ -25,9 +25,28 @@
  */
 
 import { autobind } from 'core-decorators'
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
+
+// Temporary sleep for splash + init auth
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 @autobind
 export default class AuthStore {
   @observable name = 'proto-app'
+  @observable isAuthenticating = true
+  @observable isAuthenticated = false
+
+  async initAuth () {
+    // Simulate start
+    await sleep(1000)
+
+    this.initAuthFinish(false)
+  }
+
+  @action initAuthFinish (isAuthenticated: boolean) {
+    this.isAuthenticating = false
+    this.isAuthenticated = isAuthenticated
+  }
 }
