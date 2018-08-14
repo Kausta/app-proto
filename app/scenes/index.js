@@ -24,4 +24,4 @@
  *  @format
  */
 
-export {default as SplashScreen} from './Splash'
+export { default as SplashScreen } from './Splash'

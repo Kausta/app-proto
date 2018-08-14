@@ -31,10 +31,8 @@ type Props = {
   style?: any
 }
 let Content = (props: Props) => {
-  const {style, ...rest} = props
-  return (
-    <NBContent contentContainerStyle={style} {...rest} />
-  )
+  const { style, ...rest } = props
+  return <NBContent contentContainerStyle={style} {...rest} />
 }
 Content.defaultProps = {
   style: {}

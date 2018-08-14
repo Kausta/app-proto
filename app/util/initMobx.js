@@ -34,7 +34,7 @@ const initMobx = (logEverything?: boolean = false) => {
   })
 
   // Register development logger
-  spy((event) => {
+  spy(event => {
     if (event.type === 'action') {
       console.log(`${event.name} with args: ${event.arguments}`)
     } else if (logEverything) {

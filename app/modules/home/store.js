@@ -27,6 +27,4 @@
 import { autobind } from 'core-decorators'
 
 @autobind
-export default class HomeStore {
-
-}
+export default class HomeStore {}

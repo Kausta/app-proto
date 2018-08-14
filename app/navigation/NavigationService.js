@@ -42,7 +42,9 @@ const navigate = (routeName: string, params?: NavigationParams) => {
   )
 }
 
-const navigateDeep = (actions: { routeName: string, params?: NavigationParams }[]) => {
+const navigateDeep = (
+  actions: { routeName: string, params?: NavigationParams }[]
+) => {
   navigator.dispatch(
     actions.reduceRight(
       (previousAction, action): any =>

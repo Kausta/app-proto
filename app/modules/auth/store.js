@@ -45,7 +45,8 @@ export default class AuthStore {
     this.initAuthFinish(false)
   }
 
-  @action initAuthFinish (isAuthenticated: boolean) {
+  @action
+  initAuthFinish (isAuthenticated: boolean) {
     this.isAuthenticating = false
     this.isAuthenticated = isAuthenticated
   }

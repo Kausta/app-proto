@@ -39,14 +39,19 @@ const inject = injectBase(stores => ({
   auth: stores.auth,
   home: stores.home
 }))
-const decorateStore = cls => autobind(inject(observer(cls)))
+const decorateStore = (cls: any): any => autobind(inject(observer(cls)))
+const defaultStoreProps = {
+  auth: null,
+  home: null
+}
 
 export {
   AuthStore,
   HomeStore,
   stores,
   inject,
-  decorateStore
+  decorateStore,
+  defaultStoreProps
 }
 
 export type StoreProps = {

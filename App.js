@@ -55,17 +55,17 @@ export default class App extends React.Component<Props, State> {
       // require('assets/logo.png'),
     ])
     const fontAssets = cacheFonts([
-      {Roboto: require('native-base/Fonts/Roboto.ttf')},
-      {Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')},
-      {Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')},
-      {FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf')}
+      { Roboto: require('native-base/Fonts/Roboto.ttf') },
+      { Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf') },
+      { Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf') },
+      { FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf') }
     ])
 
     await Promise.all([...imageAssets, ...fontAssets])
   }
 
   _setReady = () => {
-    this.setState({isReady: true})
+    this.setState({ isReady: true })
   }
 
   render () {

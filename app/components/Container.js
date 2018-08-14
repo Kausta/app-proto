@@ -28,6 +28,4 @@ import React from 'react'
 import { Container } from 'native-base'
 
 type Props = {}
-export default (props: Props) => (
-  <Container {...props} />
-)
+export default (props: Props) => <Container {...props} />

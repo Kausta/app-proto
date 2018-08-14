@@ -25,7 +25,8 @@
  */
 
 import React from 'react'
-import { decorateStore, StoreProps } from 'store'
+import { decorateStore, defaultStoreProps } from 'store'
+import type { StoreProps } from 'store'
 import { StyleSheet } from 'react-native'
 import { Text } from 'native-base'
 import { Container, Content } from 'components'
@@ -34,11 +35,17 @@ type Props = {}
 
 @decorateStore
 export default class LogIn extends React.Component<Props & StoreProps> {
+  static defaultProps = {
+    ...defaultStoreProps
+  }
+
   render () {
     return (
       <Container>
         <Content style={styles.container}>
-          <Text>Open up App.js to start working on {this.props.auth.name}!</Text>
+          <Text>
+            Open up App.js to start working on {this.props.auth.name}!
+          </Text>
           <Text>Changes you make will automatically reload.</Text>
           <Text>Shake your phone to open the developer menu.</Text>
         </Content>

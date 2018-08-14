@@ -27,7 +27,7 @@
 import { Asset, Font } from 'expo'
 import { Image } from 'react-native'
 
-export function cacheImages (images: Array<string | any>) : Array<Promise<void>> {
+export function cacheImages (images: Array<string | any>): Array<Promise<void>> {
   return images.map(image => {
     if (typeof image === 'string') {
       return Image.prefetch(image)
@@ -37,6 +37,6 @@ export function cacheImages (images: Array<string | any>) : Array<Promise<void>>
   })
 }
 
-export function cacheFonts (fonts: Array<Object>) : Array<Promise<void>> {
+export function cacheFonts (fonts: Array<Object>): Array<Promise<void>> {
   return fonts.map(font => Font.loadAsync(font))
 }

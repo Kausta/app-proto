@@ -26,16 +26,23 @@
 
 import React from 'react'
 import RootNavigator from 'navigation'
-import { decorateStore, StoreProps } from 'store'
+import { decorateStore, defaultStoreProps } from 'store'
+import type { StoreProps } from 'store'
 import NavigationService from 'navigation/NavigationService'
 
 type Props = {}
 @decorateStore
 export default class App extends React.Component<Props & StoreProps> {
+  static defaultProps = {
+    ...defaultStoreProps
+  }
+
   componentDidMount () {
     // Initialize auth and then navigate to proper page
     this.props.auth.initAuth().then(() => {
-      NavigationService.navigate(this.props.auth.isAuthenticated ? 'Home' : 'Auth')
+      NavigationService.navigate(
+        this.props.auth.isAuthenticated ? 'Home' : 'Auth'
+      )
     })
   }
 
@@ -45,8 +52,6 @@ export default class App extends React.Component<Props & StoreProps> {
   }
 
   render () {
-    return (
-      <RootNavigator ref={this.registerNavService} />
-    )
+    return <RootNavigator ref={this.registerNavService} />
   }
 }
