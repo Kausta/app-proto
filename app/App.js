@@ -26,24 +26,12 @@
 
 import React from 'react'
 import RootNavigator from 'navigation'
-import { autobind } from 'core-decorators'
-import { observer, inject } from 'mobx-react'
-import AuthStore from 'modules/auth/store'
+import { decorateStore, StoreProps } from 'store'
 import NavigationService from 'navigation/NavigationService'
 
-type Props = {
-  auth: any | AuthStore
-}
-@autobind
-@inject(stores => ({
-  auth: stores.auth
-}))
-@observer
-export default class App extends React.Component<Props> {
-  static defaultProps = {
-    auth: null
-  }
-
+type Props = {}
+@decorateStore
+export default class App extends React.Component<Props & StoreProps> {
   componentDidMount () {
     // Initialize auth and then navigate to proper page
     this.props.auth.initAuth().then(() => {

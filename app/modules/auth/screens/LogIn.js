@@ -25,26 +25,15 @@
  */
 
 import React from 'react'
-import { autobind } from 'core-decorators'
-import { observer, inject } from 'mobx-react/native'
-import AuthStore from '../store'
+import { decorateStore, StoreProps } from 'store'
 import { StyleSheet } from 'react-native'
 import { Text } from 'native-base'
 import { Container, Content } from 'components'
 
-type Props = {
-  auth: any | AuthStore
-}
-@autobind
-@inject(stores => ({
-  auth: stores.auth
-}))
-@observer
-export default class LogIn extends React.Component<Props> {
-  static defaultProps = {
-    auth: null
-  }
+type Props = {}
 
+@decorateStore
+export default class LogIn extends React.Component<Props & StoreProps> {
   render () {
     return (
       <Container>

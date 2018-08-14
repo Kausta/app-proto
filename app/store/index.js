@@ -24,10 +24,32 @@
  *  @format
  */
 
-import { store as auth } from 'modules/auth'
-import { store as home } from 'modules/home'
+import { autobind } from 'core-decorators'
+import { inject as injectBase, observer } from 'mobx-react/native'
 
-export default {
-  auth,
-  home
+import { store as AuthStore } from 'modules/auth'
+import { store as HomeStore } from 'modules/home'
+
+const stores = {
+  auth: AuthStore,
+  home: HomeStore
+}
+
+const inject = injectBase(stores => ({
+  auth: stores.auth,
+  home: stores.home
+}))
+const decorateStore = cls => autobind(inject(observer(cls)))
+
+export {
+  AuthStore,
+  HomeStore,
+  stores,
+  inject,
+  decorateStore
+}
+
+export type StoreProps = {
+  auth: any | AuthStore,
+  home: any | HomeStore
 }

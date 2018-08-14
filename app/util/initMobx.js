@@ -25,7 +25,7 @@
  */
 
 import { configure, spy } from 'mobx'
-import stores from 'store'
+import { stores } from 'store'
 
 const initMobx = (logEverything?: boolean = false) => {
   // Enforce actions for better manageability
