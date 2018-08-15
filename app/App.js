@@ -26,24 +26,36 @@
 
 import React from 'react'
 import RootNavigator from 'navigation'
-import { decorateStore, defaultStoreProps } from 'store'
+import { autorun } from 'mobx'
+import { inject, observer, autobind, defaultStoreProps } from 'store'
 import type { StoreProps } from 'store'
 import NavigationService from 'navigation/NavigationService'
 
 type Props = {}
-@decorateStore
+
+@autobind
+@inject
+@observer
 export default class App extends React.Component<Props & StoreProps> {
   static defaultProps = {
     ...defaultStoreProps
   }
 
-  componentDidMount () {
-    // Initialize auth and then navigate to proper page
-    this.props.auth.initAuth().then(() => {
-      NavigationService.navigate(
-        this.props.auth.isAuthenticated ? 'Home' : 'Auth'
-      )
+  constructor () {
+    super()
+
+    autorun(() => {
+      const { isConnecting, isAuthenticated } = this.props.auth
+      if (isConnecting) {
+        NavigationService.navigate('Splash')
+      } else {
+        NavigationService.navigate(isAuthenticated ? 'Home' : 'Auth')
+      }
     })
+  }
+
+  componentDidMount () {
+    this.props.auth.initAuth()
   }
 
   registerNavService = (navigator: any) => {

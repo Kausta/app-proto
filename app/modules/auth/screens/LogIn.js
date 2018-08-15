@@ -25,15 +25,18 @@
  */
 
 import React from 'react'
-import { decorateStore, defaultStoreProps } from 'store'
+import { autobind, inject, observer, defaultStoreProps } from 'store'
 import type { StoreProps } from 'store'
 import { StyleSheet } from 'react-native'
 import { Text } from 'native-base'
 import { Container, Content } from 'components'
+import { autobind, inject, observer } from '../../../store'
 
 type Props = {}
 
-@decorateStore
+@autobind
+@inject
+@observer
 export default class LogIn extends React.Component<Props & StoreProps> {
   static defaultProps = {
     ...defaultStoreProps

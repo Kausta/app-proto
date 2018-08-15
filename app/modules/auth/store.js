@@ -35,18 +35,21 @@ function sleep (ms) {
 @autobind
 export default class AuthStore {
   @observable name = 'proto-app'
+
+  @observable isConnecting = true
   @observable isAuthenticating = true
   @observable isAuthenticated = false
 
-  async initAuth () {
+  initAuth () {
     // Simulate start
-    await sleep(1000)
-
-    this.initAuthFinish(false)
+    sleep(1000).then(() => {
+      this.initAuthFinish(false)
+    })
   }
 
   @action
   initAuthFinish (isAuthenticated: boolean) {
+    this.isConnecting = false
     this.isAuthenticating = false
     this.isAuthenticated = isAuthenticated
   }
