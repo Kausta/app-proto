@@ -24,19 +24,28 @@
  *  @format
  */
 
-import { createSwitchNavigator } from 'react-navigation'
+import React from 'react'
+import { Text } from 'react-native'
+import { fontFamily } from 'style'
 
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
+type Props = {
+  style?: any
+}
+const defaultProps = {
+  style: {}
+}
 
-export default createSwitchNavigator(
-  {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
-  },
-  {
-    initialRouteName: 'Splash'
-  }
+const RegularText = ({ style, ...rest }: Props) => (
+  <Text {...rest} style={[style, { fontFamily: fontFamily.regular }]} />
 )
+const LightText = ({ style, ...rest }: Props) => (
+  <Text {...rest} style={[style, { fontFamily: fontFamily.light }]} />
+)
+const BoldText = ({ style, ...rest }: Props) => (
+  <Text {...rest} style={[style, { fontFamily: fontFamily.bold }]} />
+)
+RegularText.defaultProps = defaultProps
+LightText.defaultProps = defaultProps
+BoldText.defaultProps = defaultProps
+
+export { RegularText, LightText, BoldText }

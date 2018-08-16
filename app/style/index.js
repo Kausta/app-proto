@@ -23,20 +23,12 @@
  *  @flow
  *  @format
  */
+import { fontFamily } from './theme'
+import { widthPercentageToDP, heightPercentageToDP } from './responsive'
 
-import { createSwitchNavigator } from 'react-navigation'
+const r = {
+  wp: widthPercentageToDP,
+  hp: heightPercentageToDP
+}
 
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
-
-export default createSwitchNavigator(
-  {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
-  },
-  {
-    initialRouteName: 'Splash'
-  }
-)
+export { fontFamily, r }

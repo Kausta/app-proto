@@ -23,3 +23,6 @@
  *  @flow
  *  @format
  */
+
+export { default as Main } from './MainPage'
+export { default as Settings } from './Settings'

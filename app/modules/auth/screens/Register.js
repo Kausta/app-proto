@@ -41,7 +41,7 @@ import * as validate from 'util/authValidate'
 type Props = {}
 
 @decorateStore
-export default class LogIn extends React.Component<Props & StoreProps> {
+export default class Register extends React.Component<Props & StoreProps> {
   static defaultProps = {
     ...defaultStoreProps
   }
@@ -71,22 +71,22 @@ export default class LogIn extends React.Component<Props & StoreProps> {
   }
 
   login = () => {
+    this.props.navigation.navigate('LogIn')
+  }
+
+  signUp = () => {
     if (!this.canSubmit) {
       return
     }
     const { email, password } = this.formItems
     this.props.auth
-      .login(email, password)
+      .createAccount(email, password)
       .then(() => {
         this.props.navigation.navigate('Home')
       })
       .catch(error => {
-        Alert.alert('Error occurred', error.message)
+        Alert.alert('Error occurred when registering', error.message)
       })
-  }
-
-  signUp = () => {
-    this.props.navigation.navigate('Register')
   }
 
   render () {
@@ -129,18 +129,18 @@ export default class LogIn extends React.Component<Props & StoreProps> {
               <Button
                 block
                 primary
-                onPress={this.login}
+                onPress={this.signUp}
                 disabled={!this.canSubmit}
               >
-                <Text>Log In</Text>
+                <Text>Sign Up</Text>
               </Button>
             </View>
           </Paper>
           <View style={styles.signUpTextContainer}>
-            <TouchableOpacity onPress={this.signUp}>
+            <TouchableOpacity onPress={this.login}>
               <LightText>
-                Don't have an account?
-                <LightText style={styles.signUp}> Sign Up</LightText>
+                Already have an account?
+                <LightText style={styles.signUp}> Sign In</LightText>
               </LightText>
             </TouchableOpacity>
           </View>

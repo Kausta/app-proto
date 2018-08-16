@@ -24,19 +24,25 @@
  *  @format
  */
 
-import { createSwitchNavigator } from 'react-navigation'
+export function isEmpty (str) {
+  return !str || str.length === 0
+}
 
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
+export function validateEmail (email) {
+  const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
+  return filter.test(email)
+}
 
-export default createSwitchNavigator(
-  {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
-  },
-  {
-    initialRouteName: 'Splash'
-  }
-)
+export function validatePassword (password) {
+  return password.length > 6
+}
+
+export function confirmPassword (cPassword, password) {
+  return cPassword === password
+}
+
+const formValidate = {
+  email: validateEmail,
+  password: validatePassword
+}
+export { formValidate }

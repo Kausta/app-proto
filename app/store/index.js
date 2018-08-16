@@ -26,6 +26,7 @@
 
 import { autobind } from 'core-decorators'
 import { inject as injectBase, observer } from 'mobx-react/native'
+import type { IReactComponent } from 'mobx-react/native'
 
 import { store as AuthStore } from 'modules/auth'
 import { store as HomeStore } from 'modules/home'
@@ -34,26 +35,21 @@ const stores = {
   auth: AuthStore,
   home: HomeStore
 }
-
-const inject = injectBase(stores => ({
-  auth: stores.auth,
-  home: stores.home
-}))
-
 const defaultStoreProps = {
   auth: null,
   home: null
 }
 
-export {
-  AuthStore,
-  HomeStore,
-  stores,
-  inject,
-  autobind,
-  observer,
-  defaultStoreProps
+export function decorateStore (Target: IReactComponent) {
+  const TargetFinal = injectBase(stores => ({
+    auth: stores.auth,
+    home: stores.home
+  }))(observer(Target))
+  autobind(TargetFinal)
+  return TargetFinal
 }
+
+export { AuthStore, HomeStore, stores, defaultStoreProps }
 
 export type StoreProps = {
   auth: any | AuthStore,

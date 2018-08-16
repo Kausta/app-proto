@@ -25,6 +25,7 @@
  */
 
 import React from 'react'
+import { StatusBar } from 'react-native'
 import { AppLoading } from 'expo'
 import { Provider } from 'mobx-react/native'
 
@@ -58,7 +59,11 @@ export default class App extends React.Component<Props, State> {
       { Roboto: require('native-base/Fonts/Roboto.ttf') },
       { Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf') },
       { Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf') },
-      { FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf') }
+      { FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf') },
+      { RobotoBold: require('./app/assets/fonts/RobotoBold.ttf') },
+      { RobotoMedium: require('./app/assets/fonts/RobotoMedium.ttf') },
+      { RobotoRegular: require('./app/assets/fonts/RobotoRegular.ttf') },
+      { RobotoLight: require('./app/assets/fonts/RobotoLight.ttf') }
     ])
 
     await Promise.all([...imageAssets, ...fontAssets])

@@ -26,3 +26,6 @@
 
 export { default as Container } from './Container'
 export { default as Content } from './Content'
+export { RegularText, LightText, BoldText } from './StyledText'
+export { default as Input } from './Input'
+export { default as IconInput } from './IconInput'

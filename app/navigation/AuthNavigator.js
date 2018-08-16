@@ -23,6 +23,8 @@
  *  @flow
  *  @format
  */
+// eslint-disable-next-line no-unused-vars
+import React from 'react'
 
 import { createStackNavigator } from 'react-navigation'
 import { screens } from 'modules/auth'
@@ -31,6 +33,12 @@ export default createStackNavigator(
   {
     LogIn: {
       screen: screens.LogIn,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Register: {
+      screen: screens.Register,
       navigationOptions: {
         header: null
       }

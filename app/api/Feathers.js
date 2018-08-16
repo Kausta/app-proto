@@ -24,19 +24,38 @@
  *  @format
  */
 
-import { createSwitchNavigator } from 'react-navigation'
+import { AsyncStorage } from 'react-native'
+import io from 'socket.io-client'
+import feathers from '@feathersjs/feathers'
+import socketio from '@feathersjs/socketio-client'
+import authentication from '@feathersjs/authentication-client'
 
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
+const API_URL = 'https://app-proto.kausta.me/'
 
-export default createSwitchNavigator(
-  {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
-  },
-  {
-    initialRouteName: 'Splash'
+class FeathersApi {
+  appInstance = null
+
+  init (): void {
+    const options = {
+      transports: ['websocket'],
+      pingTimeout: 3000,
+      pingInterval: 5000
+    }
+    const socket = io(API_URL, options)
+
+    this.appInstance = feathers()
+      .configure(socketio(socket))
+      .configure(
+        authentication({
+          storage: AsyncStorage
+        })
+      )
   }
-)
+
+  get app (): any {
+    return this.appInstance
+  }
+}
+
+const instance = new FeathersApi()
+export { instance as api }

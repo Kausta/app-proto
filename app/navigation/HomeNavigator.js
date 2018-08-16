@@ -24,19 +24,28 @@
  *  @format
  */
 
-import { createSwitchNavigator } from 'react-navigation'
+// eslint-disable-next-line no-unused-vars
+import React from 'react'
 
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
+import { createStackNavigator } from 'react-navigation'
+import { screens } from 'modules/home'
 
-export default createSwitchNavigator(
+export default createStackNavigator(
   {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
+    Main: {
+      screen: screens.Main,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Settings: {
+      screen: screens.Settings,
+      navigationOptions: {
+        header: null
+      }
+    }
   },
   {
-    initialRouteName: 'Splash'
+    initialRouteName: 'Main'
   }
 )
