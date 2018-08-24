@@ -26,26 +26,39 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, Dimensions, Platform } from 'react-native'
-import { decorateStore, defaultStoreProps } from 'store'
-import type { StoreProps } from 'store'
+import { NavigationProps } from 'navigation/Typed'
+import { decorateStore, defaultStoreProps, StoreProps } from 'store'
 import { Button, Header, Left, Right, Icon, Body, Title } from 'native-base'
 import { GiftedChat } from 'react-native-gifted-chat'
-import { Container, Content } from 'components'
+import { Container, Content } from '@kausta/react-native-commons'
+import { computed } from 'mobx'
 
-const maxHeight =
-  Platform.OS === 'ios'
-    ? Dimensions.get('window').height - 65
-    : Dimensions.get('window').height - 85
+const maxHeight = Platform.OS === 'ios' ? Dimensions.get('window').height - 65 : Dimensions.get('window').height - 85
 
-type Props = {}
+interface Props {}
+
 @decorateStore
-export default class MainPage extends Component<Props & StoreProps> {
+export default class MainPage extends Component<Props & StoreProps & NavigationProps> {
   static defaultProps = {
-    ...defaultStoreProps
+    ...defaultStoreProps,
   }
 
-  componentDidMount () {
-    this.props.home.loadMessages()
+  @computed
+  get userId(): string {
+    const { user } = this.props.auth
+    if (!user) {
+      return ''
+    }
+    return user._id
+  }
+
+  componentDidMount() {
+    this.props.home
+      .loadMessages()
+      // tslint:disable-next-line no-empty
+      .then(() => {})
+      // tslint:disable-next-line no-empty
+      .catch(() => {})
   }
 
   goToSettings = () => {
@@ -57,12 +70,16 @@ export default class MainPage extends Component<Props & StoreProps> {
   }
 
   onLoadEarlier = () => {
-    this.props.home.loadMessages(true)
+    this.props.home
+      .loadMessages(true)
+      // tslint:disable-next-line no-empty
+      .then(() => {})
+      // tslint:disable-next-line no-empty
+      .catch(() => {})
   }
 
-  render () {
-    const { auth: { user }, home } = this.props
-
+  render() {
+    const { home } = this.props
     const messages = home.messages.slice()
 
     return (
@@ -74,7 +91,7 @@ export default class MainPage extends Component<Props & StoreProps> {
           </Body>
           <Right>
             <Button transparent onPress={this.goToSettings}>
-              <Icon name='settings' />
+              <Icon name="settings" />
             </Button>
           </Right>
         </Header>
@@ -82,10 +99,10 @@ export default class MainPage extends Component<Props & StoreProps> {
           <GiftedChat
             onSend={this.onSend}
             messages={messages}
-            user={{ _id: user._id }}
+            user={{ _id: this.userId }}
             loadEarlier={home.hasMoreMessages}
             onLoadEarlier={this.onLoadEarlier}
-            keyboardDismissMode='on-drag'
+            keyboardDismissMode="on-drag"
             autoFocus={false}
             maxHeight={maxHeight}
           />
@@ -97,16 +114,16 @@ export default class MainPage extends Component<Props & StoreProps> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   thumbnail: {
     width: 48,
     height: 48,
-    borderRadius: 24
+    borderRadius: 24,
   },
   button: {
     flex: 1,
     marginVertical: 10,
-    marginHorizontal: 30
-  }
+    marginHorizontal: 30,
+  },
 })

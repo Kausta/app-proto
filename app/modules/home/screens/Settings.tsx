@@ -26,27 +26,17 @@
 
 import React, { Component } from 'react'
 import { StyleSheet, Image } from 'react-native'
-import { decorateStore, defaultStoreProps } from 'store'
-import type { StoreProps } from 'store'
-import {
-  Button,
-  Text,
-  Header,
-  Left,
-  Right,
-  Icon,
-  Card,
-  Body,
-  CardItem,
-  Title
-} from 'native-base'
-import { Container, Content } from 'components'
+import { NavigationProps } from 'navigation/Typed'
+import { decorateStore, defaultStoreProps, StoreProps } from 'store'
+import { Button, Text, Header, Left, Right, Icon, Card, Body, CardItem, Title } from 'native-base'
+import { Container, Content } from '@kausta/react-native-commons'
 
-type Props = {}
+interface Props {}
+
 @decorateStore
-export default class Settings extends Component<Props & StoreProps> {
+export default class Settings extends Component<Props & StoreProps & NavigationProps> {
   static defaultProps = {
-    ...defaultStoreProps
+    ...defaultStoreProps,
   }
 
   goBack = () => {
@@ -58,14 +48,17 @@ export default class Settings extends Component<Props & StoreProps> {
     auth.promptForLogout(() => home.logout())
   }
 
-  render () {
-    const { auth: { user } } = this.props
+  render() {
+    const { user } = this.props.auth
+    if (!user) {
+      return null
+    }
     return (
       <Container>
         <Header>
           <Left>
             <Button transparent onPress={this.goBack}>
-              <Icon name='arrow-back' />
+              <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
@@ -80,9 +73,9 @@ export default class Settings extends Component<Props & StoreProps> {
                 <Image
                   style={styles.thumbnail}
                   source={{
-                    uri: user.avatar
+                    uri: user.avatar,
                   }}
-                  resizeMode='contain'
+                  resizeMode="contain"
                 />
                 <Body>
                   <Text>{user.email}</Text>
@@ -104,16 +97,16 @@ export default class Settings extends Component<Props & StoreProps> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   thumbnail: {
     width: 48,
     height: 48,
-    borderRadius: 24
+    borderRadius: 24,
   },
   button: {
     flex: 1,
     marginVertical: 10,
-    marginHorizontal: 30
-  }
+    marginHorizontal: 30,
+  },
 })

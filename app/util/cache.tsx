@@ -24,28 +24,19 @@
  *  @format
  */
 
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Spinner } from 'native-base'
-import { Container, Content } from 'components'
+import { Asset, Font } from 'expo'
+import { Image } from 'react-native'
 
-type Props = {}
-export default class Splash extends React.Component<Props> {
-  render () {
-    return (
-      <Container>
-        <Content style={styles.contentStyle}>
-          <Spinner />
-        </Content>
-      </Container>
-    )
-  }
+export function cacheImages(images: Array<string | any>): Array<Promise<void>> {
+  return images.map((image) => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image)
+    } else {
+      return Asset.fromModule(image).downloadAsync()
+    }
+  })
 }
 
-const styles = StyleSheet.create({
-  contentStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+export function cacheFonts(fonts: Font.FontMap[]): Array<Promise<void>> {
+  return fonts.map((font) => Font.loadAsync(font))
+}

@@ -24,25 +24,9 @@
  *  @format
  */
 
-export function isEmpty (str) {
-  return !str || str.length === 0
-}
+import { NavigationScreenProp, NavigationState } from 'react-navigation'
 
-export function validateEmail (email) {
-  const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
-  return filter.test(email)
+export type NavigationPropType = NavigationScreenProp<NavigationState>
+export interface NavigationProps {
+  navigation: NavigationPropType
 }
-
-export function validatePassword (password) {
-  return password.length > 6
-}
-
-export function confirmPassword (cPassword, password) {
-  return cPassword === password
-}
-
-const formValidate = {
-  email: validateEmail,
-  password: validatePassword
-}
-export { formValidate }

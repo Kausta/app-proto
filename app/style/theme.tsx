@@ -24,17 +24,11 @@
  *  @format
  */
 
-import React from 'react'
-import { Content as NBContent } from 'native-base'
+const fontFamily = {
+  bold: 'RobotoBold',
+  medium: 'RobotoMedium',
+  regular: 'RobotoRegular',
+  light: 'RobotoLight',
+}
 
-type Props = {
-  style?: any
-}
-let Content = (props: Props) => {
-  const { style, ...rest } = props
-  return <NBContent contentContainerStyle={style} {...rest} />
-}
-Content.defaultProps = {
-  style: {}
-}
-export default Content
+export { fontFamily }

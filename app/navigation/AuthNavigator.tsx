@@ -23,20 +23,27 @@
  *  @flow
  *  @format
  */
+// eslint-disable-next-line no-unused-vars
 
-import { Asset, Font } from 'expo'
-import { Image } from 'react-native'
+import { createStackNavigator } from 'react-navigation'
+import { screens } from 'modules/auth'
 
-export function cacheImages (images: Array<string | any>): Array<Promise<void>> {
-  return images.map(image => {
-    if (typeof image === 'string') {
-      return Image.prefetch(image)
-    } else {
-      return Asset.fromModule(image).downloadAsync()
-    }
-  })
-}
-
-export function cacheFonts (fonts: Array<Object>): Array<Promise<void>> {
-  return fonts.map(font => Font.loadAsync(font))
-}
+export default createStackNavigator(
+  {
+    LogIn: {
+      screen: screens.LogIn,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Register: {
+      screen: screens.Register,
+      navigationOptions: {
+        header: null,
+      },
+    },
+  },
+  {
+    initialRouteName: 'LogIn',
+  }
+)

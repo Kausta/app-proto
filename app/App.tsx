@@ -27,27 +27,22 @@
 import React from 'react'
 import RootNavigator from 'navigation'
 import { autorun } from 'mobx'
-import { decorateStore, defaultStoreProps } from 'store'
-import type { StoreProps } from 'store'
-import NavigationService from 'navigation/NavigationService'
+import { decorateStore, defaultStoreProps, StoreProps } from 'store'
+import { NavigationService } from '@kausta/react-native-commons'
 
-type Props = {}
+interface Props {}
 
 @decorateStore
 export default class App extends React.Component<Props & StoreProps> {
   static defaultProps = {
-    ...defaultStoreProps
+    ...defaultStoreProps,
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // Set connecting and authentication autorun
     autorun(() => {
       // We track connecting and authenticated info
-      const {
-        isConnecting,
-        isAuthenticated,
-        isAuthenticating
-      } = this.props.auth
+      const { isConnecting, isAuthenticated, isAuthenticating } = this.props.auth
       if (isConnecting || isAuthenticating) {
         // If is connecting go back to splash
         NavigationService.navigate('Splash')
@@ -68,7 +63,7 @@ export default class App extends React.Component<Props & StoreProps> {
     NavigationService.setTopLevelNavigator(navigator)
   }
 
-  render () {
+  render() {
     return <RootNavigator ref={this.registerNavService} />
   }
 }

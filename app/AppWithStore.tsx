@@ -25,33 +25,36 @@
  */
 
 import React from 'react'
-import { StatusBar } from 'react-native'
-import { AppLoading } from 'expo'
+import Expo, { AppLoading } from 'expo'
 import { Provider } from 'mobx-react/native'
 
-import initMobx from 'util/initMobx'
+import { MobX, theme } from '@kausta/react-native-commons'
+import { fontFamily } from 'style'
+import { stores } from 'store'
 import { cacheFonts, cacheImages } from 'util/cache'
-import AppWithoutStore from './app/App'
+import AppWithoutStore from './App'
 
-type Props = {}
-type State = {
+interface Props {}
+
+interface State {
   isReady: boolean
 }
-export default class App extends React.Component<Props, State> {
-  stores = undefined
 
-  constructor () {
-    super()
-    this.stores = initMobx()
+export default class AppWithStore extends React.Component<Props, State> {
+  readonly stores = MobX.init(stores)
+
+  constructor(props: Props) {
+    super(props)
+    theme.init({ fontFamily })
     this.state = {
-      isReady: false
+      isReady: false,
     }
   }
 
   /**
    * Caches images and fonts
    */
-  static async _loadAssetsAsync () {
+  static async _loadAssetsAsync() {
     const imageAssets = cacheImages([
       // require('assets/logo.png'),
     ])
@@ -60,10 +63,10 @@ export default class App extends React.Component<Props, State> {
       { Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf') },
       { Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf') },
       { FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf') },
-      { RobotoBold: require('./app/assets/fonts/RobotoBold.ttf') },
-      { RobotoMedium: require('./app/assets/fonts/RobotoMedium.ttf') },
-      { RobotoRegular: require('./app/assets/fonts/RobotoRegular.ttf') },
-      { RobotoLight: require('./app/assets/fonts/RobotoLight.ttf') }
+      { RobotoBold: require('../assets/fonts/RobotoBold.ttf') },
+      { RobotoMedium: require('../assets/fonts/RobotoMedium.ttf') },
+      { RobotoRegular: require('../assets/fonts/RobotoRegular.ttf') },
+      { RobotoLight: require('../assets/fonts/RobotoLight.ttf') },
     ])
 
     await Promise.all([...imageAssets, ...fontAssets])
@@ -73,15 +76,9 @@ export default class App extends React.Component<Props, State> {
     this.setState({ isReady: true })
   }
 
-  render () {
+  render() {
     if (!this.state.isReady) {
-      return (
-        <AppLoading
-          startAsync={App._loadAssetsAsync}
-          onFinish={this._setReady}
-          onError={console.warn}
-        />
-      )
+      return <AppLoading startAsync={AppWithStore._loadAssetsAsync} onFinish={this._setReady} onError={console.warn} />
     }
     return (
       <Provider {...this.stores}>
@@ -90,3 +87,8 @@ export default class App extends React.Component<Props, State> {
     )
   }
 }
+
+if (process.env.NODE_ENV === 'development') {
+  Expo.KeepAwake.activate()
+}
+Expo.registerRootComponent(AppWithStore)

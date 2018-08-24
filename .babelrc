@@ -1,7 +1,6 @@
 {
   "presets": [
-    "babel-preset-expo",
-    "flow"
+    "babel-preset-expo"
   ],
   "env": {
     "development": {
@@ -11,12 +10,11 @@
     }
   },
   "plugins": [
-    "transform-decorators-legacy",
     [
       "module-resolver",
       {
         "root": [
-          "./app"
+          "./build"
         ],
         "extensions": [
           ".ios.js",
@@ -25,6 +23,6 @@
           ".json"
         ]
       }
-    ]
+    ],
   ]
 }

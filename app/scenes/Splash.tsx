@@ -23,12 +23,29 @@
  *  @flow
  *  @format
  */
-import { fontFamily } from './theme'
-import { widthPercentageToDP, heightPercentageToDP } from './responsive'
 
-const r = {
-  wp: widthPercentageToDP,
-  hp: heightPercentageToDP
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import { Spinner } from 'native-base'
+import { Container, Content } from '@kausta/react-native-commons'
+
+interface Props {}
+export default class Splash extends React.Component<Props> {
+  render() {
+    return (
+      <Container>
+        <Content style={styles.contentStyle}>
+          <Spinner />
+        </Content>
+      </Container>
+    )
+  }
 }
 
-export { fontFamily, r }
+const styles = StyleSheet.create({
+  contentStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})

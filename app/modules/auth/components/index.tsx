@@ -23,12 +23,4 @@
  *  @flow
  *  @format
  */
-
-const fontFamily = {
-  bold: 'RobotoBold',
-  medium: 'RobotoMedium',
-  regular: 'RobotoRegular',
-  light: 'RobotoLight'
-}
-
-export { fontFamily }
+export {}

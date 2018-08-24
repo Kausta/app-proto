@@ -31,14 +31,19 @@ import { api } from 'api/Feathers'
 
 @autobind
 export default class AuthStore {
-  @observable name = 'App Proto'
+  @observable
+  readonly name: string = 'App Proto'
 
-  @observable isAuthenticating = true
-  @observable isAuthenticated = false
-  @observable isConnecting = false
-  @observable user = null
+  @observable
+  isAuthenticating: boolean = true
+  @observable
+  isAuthenticated: boolean = false
+  @observable
+  isConnecting: boolean = false
+  @observable
+  user: any = null
 
-  init () {
+  init() {
     api.init()
     this.connect()
 
@@ -48,7 +53,7 @@ export default class AuthStore {
     }
   }
 
-  connect () {
+  connect() {
     this.setConnecting(true)
 
     const { io } = api.app
@@ -76,37 +81,37 @@ export default class AuthStore {
     })
   }
 
-  createAccount (email, password) {
+  createAccount(email: string, password: string) {
     return api.app
       .service('users')
       .create({
         email,
-        password
+        password,
       })
-      .then(result => {
+      .then(() => {
         return this.login(email, password)
       })
   }
 
-  login (email, password) {
+  login(email: string, password: string) {
     return this.authenticate({
       strategy: 'local',
       email,
-      password
+      password,
     })
   }
 
-  authenticate (options?: any) {
+  authenticate(options?: any) {
     options = options || undefined
     this.setAuthenticating(true)
     return this._authenticate(options)
-      .then(user => {
+      .then((user: any) => {
         console.log('Authenticated successfully: ', user._id, user.email)
         this.setUser(user)
         this.setAuthenticated(true)
         return Promise.resolve(user)
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log('Authentication failed: ', error.message)
         console.log(error)
         this.setAuthenticated(false)
@@ -114,47 +119,48 @@ export default class AuthStore {
       })
   }
 
-  _authenticate (payload: any) {
+  _authenticate(payload: any) {
     return api.app
       .authenticate(payload)
-      .then(response => {
+      .then((response: any) => {
         return api.app.passport.verifyJWT(response.accessToken)
       })
-      .then(payload => {
-        return api.app.service('users').get(payload.userId)
+      .then((returnedPayload: any) => {
+        return api.app.service('users').get(returnedPayload.userId)
       })
-      .catch(e => Promise.reject(e))
+      .catch((e: any) => Promise.reject(e))
   }
 
   @action
-  setConnecting (isConnecting: boolean) {
+  setConnecting(isConnecting: boolean) {
     this.isConnecting = isConnecting
   }
 
   @action
-  setAuthenticated (isAuthenticated: boolean) {
+  setAuthenticated(isAuthenticated: boolean) {
     this.isAuthenticating = false
     this.isAuthenticated = isAuthenticated
   }
 
   @action
-  setAuthenticating (isAuthenticating: boolean) {
+  setAuthenticating(isAuthenticating: boolean) {
     this.isAuthenticating = isAuthenticating
   }
 
   @action
-  setUser (user: ?Object) {
+  setUser(user: any) {
     // TODO: Actual username
     user.name = user.email
     this.user = user
   }
 
-  promptForLogout (callback: () => void) {
+  promptForLogout(callback: () => void) {
     Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
       {
         text: 'Cancel',
+        // tslint:disable-next-line no-empty
         onPress: () => {},
-        style: 'cancel'
+        style: 'cancel',
       },
       {
         text: 'Yes',
@@ -162,14 +168,19 @@ export default class AuthStore {
           callback()
           this.logout()
         },
-        style: 'destructive'
-      }
+        style: 'destructive',
+      },
     ])
   }
 
   @action
-  logout () {
-    api.app.logout()
+  logout() {
+    api.app
+      .logout()
+      // tslint:disable-next-line no-empty
+      .then(() => {})
+      // tslint:disable-next-line no-empty
+      .catch(() => {})
     this.user = null
     this.isAuthenticated = false
     this.isAuthenticating = false

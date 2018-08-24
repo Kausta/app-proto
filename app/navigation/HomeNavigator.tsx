@@ -24,31 +24,27 @@
  *  @format
  */
 
-import { configure, spy } from 'mobx'
-import { stores } from 'store'
+// eslint-disable-next-line no-unused-vars
 
-const initMobx = (logEverything?: boolean = false) => {
-  // Enforce actions for better manageability
-  configure({
-    enforceActions: true
-  })
+import { createStackNavigator } from 'react-navigation'
+import { screens } from 'modules/home'
 
-  // Register development logger
-  spy(event => {
-    if (event.type === 'action') {
-      console.log(`${event.name} with args: ${event.arguments}`)
-    } else if (logEverything) {
-      console.log(event.toString())
-    }
-  })
-
-  // Create store objects from classes
-  // We want to leave access to stores for typing purposes
-  const storeInstances = {}
-  for (const key in stores) {
-    const Store = stores[key]
-    storeInstances[key] = new Store()
+export default createStackNavigator(
+  {
+    Main: {
+      screen: screens.Main,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Settings: {
+      screen: screens.Settings,
+      navigationOptions: {
+        header: null,
+      },
+    },
+  },
+  {
+    initialRouteName: 'Main',
   }
-  return storeInstances
-}
-export default initMobx
+)

@@ -24,8 +24,34 @@
  *  @format
  */
 
-export { default as Container } from './Container'
-export { default as Content } from './Content'
-export { RegularText, LightText, BoldText } from './StyledText'
-export { default as Input } from './Input'
-export { default as IconInput } from './IconInput'
+import { autobind } from 'core-decorators'
+import { inject as injectBase, observer, IReactComponent } from 'mobx-react/native'
+import { MobX } from '@kausta/react-native-commons'
+
+import { store as AuthStore } from 'modules/auth'
+import { store as HomeStore } from 'modules/home'
+
+const stores: MobX.StoresType = {
+  auth: AuthStore,
+  home: HomeStore,
+}
+const defaultStoreProps = {
+  auth: null,
+  home: null,
+}
+
+export function decorateStore<T extends IReactComponent>(Target: T) {
+  const TargetFinal = injectBase((s: StoreProps) => ({
+    auth: s.auth,
+    home: s.home,
+  }))(observer(Target))
+  autobind(TargetFinal)
+  return TargetFinal
+}
+
+export { AuthStore, HomeStore, stores, defaultStoreProps }
+
+export interface StoreProps {
+  auth: AuthStore
+  home: HomeStore
+}

@@ -1,0 +1,23 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:latest",
+    "tslint-react-recommended",
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "max-line-length": {
+      "options": [120]
+    },
+    "quotemark": [true, "single", "jsx-double"],
+    "indent": [true, "spaces"],
+    "no-submodule-imports": false,
+    "no-use-before-declare": false,
+    "no-implicit-dependencies": false,
+    "semicolon": [
+      true,
+      "never"
+    ]
+  }
+}

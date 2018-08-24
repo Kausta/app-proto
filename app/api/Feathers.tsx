@@ -26,20 +26,24 @@
 
 import { AsyncStorage } from 'react-native'
 import io from 'socket.io-client'
-import feathers from '@feathersjs/feathers'
+import feathers, { Application } from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 import authentication from '@feathersjs/authentication-client'
 
 const API_URL = 'https://app-proto.kausta.me/'
 
-class FeathersApi {
-  appInstance = null
+export interface ApplicationType extends Application<Object> {
+  io: SocketIOClient.Manager
+}
 
-  init (): void {
+class FeathersApi {
+  appInstance: ApplicationType | null = null
+
+  init(): void {
     const options = {
       transports: ['websocket'],
       pingTimeout: 3000,
-      pingInterval: 5000
+      pingInterval: 5000,
     }
     const socket = io(API_URL, options)
 
@@ -47,13 +51,13 @@ class FeathersApi {
       .configure(socketio(socket))
       .configure(
         authentication({
-          storage: AsyncStorage
+          storage: AsyncStorage,
         })
-      )
+      ) as ApplicationType
   }
 
-  get app (): any {
-    return this.appInstance
+  get app(): ApplicationType {
+    return this.appInstance as ApplicationType
   }
 }
 

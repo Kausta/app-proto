@@ -23,20 +23,4 @@
  *  @flow
  *  @format
  */
-
-import { createSwitchNavigator } from 'react-navigation'
-
-import { SplashScreen } from 'scenes'
-import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator'
-
-export default createSwitchNavigator(
-  {
-    Splash: SplashScreen,
-    Auth: AuthNavigator,
-    Home: HomeNavigator
-  },
-  {
-    initialRouteName: 'Splash'
-  }
-)
+export {}

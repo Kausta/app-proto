@@ -2,7 +2,7 @@
 
 
 app-proto Mobile Repo
-* Standard compliant React Native App
+* Standard compliant React Native AppWithStore
 * By being part of this repo, you accept the License below.
 
 
@@ -15,7 +15,7 @@ app-proto Mobile Repo
 **Step 3:** Install the Application with `yarn`
 
 
-## :arrow_forward: How to Run App
+## :arrow_forward: How to Run AppWithStore
 
 0. Install Expo on your phone if you haven't done so
 1. cd to the repo

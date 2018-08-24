@@ -23,9 +23,12 @@
  *  @flow
  *  @format
  */
+import { fontFamily } from './theme'
+import { widthPercentageToDP, heightPercentageToDP } from './responsive'
 
-import React from 'react'
-import { Container } from 'native-base'
+const r = {
+  wp: widthPercentageToDP,
+  hp: heightPercentageToDP,
+}
 
-type Props = {}
-export default (props: Props) => <Container {...props} />
+export { fontFamily, r }
