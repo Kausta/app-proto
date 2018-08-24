@@ -23,15 +23,9 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import * as screens from './screens'
+import * as components from './components'
+import store from './store'
 
-import renderer from 'react-test-renderer'
-
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export { screens, components, store }

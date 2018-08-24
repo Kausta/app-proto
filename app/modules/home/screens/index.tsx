@@ -23,15 +23,6 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
-
-import renderer from 'react-test-renderer'
-
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export { default as Main } from './MainPage'
+export { default as Settings } from './Settings'

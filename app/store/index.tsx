@@ -23,15 +23,35 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import { autobind } from 'core-decorators'
+import { inject as injectBase, observer, IReactComponent } from 'mobx-react/native'
+import { MobX } from '@kausta/react-native-commons'
 
-import renderer from 'react-test-renderer'
+import { store as AuthStore } from 'modules/auth'
+import { store as HomeStore } from 'modules/home'
 
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+const stores: MobX.StoresType = {
+  auth: AuthStore,
+  home: HomeStore,
+}
+const defaultStoreProps = {
+  auth: null,
+  home: null,
+}
+
+export function decorateStore<T extends IReactComponent>(Target: T) {
+  const TargetFinal = injectBase((s: StoreProps) => ({
+    auth: s.auth,
+    home: s.home,
+  }))(observer(Target))
+  autobind(TargetFinal)
+  return TargetFinal
+}
+
+export { AuthStore, HomeStore, stores, defaultStoreProps }
+
+export interface StoreProps {
+  auth: AuthStore
+  home: HomeStore
+}

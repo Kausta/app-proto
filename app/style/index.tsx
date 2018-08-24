@@ -23,15 +23,12 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
+import { fontFamily } from './theme'
+import { widthPercentageToDP, heightPercentageToDP } from './responsive'
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+const r = {
+  wp: widthPercentageToDP,
+  hp: heightPercentageToDP,
+}
 
-import renderer from 'react-test-renderer'
-
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export { fontFamily, r }

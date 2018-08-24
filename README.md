@@ -1,7 +1,8 @@
-# app-proto [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+# app-proto [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Kausta/app-proto/graphs/commit-activity) [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com) 
+
 
 app-proto Mobile Repo
-* Standard compliant React Native App
+* Standard compliant React Native AppWithStore
 * By being part of this repo, you accept the License below.
 
 
@@ -14,7 +15,7 @@ app-proto Mobile Repo
 **Step 3:** Install the Application with `yarn`
 
 
-## :arrow_forward: How to Run App
+## :arrow_forward: How to Run AppWithStore
 
 0. Install Expo on your phone if you haven't done so
 1. cd to the repo

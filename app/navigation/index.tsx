@@ -23,15 +23,20 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import { createSwitchNavigator } from 'react-navigation'
 
-import renderer from 'react-test-renderer'
+import { SplashScreen } from 'scenes'
+import AuthNavigator from './AuthNavigator'
+import HomeNavigator from './HomeNavigator'
 
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export default createSwitchNavigator(
+  {
+    Splash: SplashScreen,
+    Auth: AuthNavigator,
+    Home: HomeNavigator,
+  },
+  {
+    initialRouteName: 'Splash',
+  }
+)

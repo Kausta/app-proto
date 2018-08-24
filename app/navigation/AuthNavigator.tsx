@@ -23,15 +23,27 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
+// eslint-disable-next-line no-unused-vars
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import { createStackNavigator } from 'react-navigation'
+import { screens } from 'modules/auth'
 
-import renderer from 'react-test-renderer'
-
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export default createStackNavigator(
+  {
+    LogIn: {
+      screen: screens.LogIn,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Register: {
+      screen: screens.Register,
+      navigationOptions: {
+        header: null,
+      },
+    },
+  },
+  {
+    initialRouteName: 'LogIn',
+  }
+)

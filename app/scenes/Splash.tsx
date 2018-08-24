@@ -23,15 +23,29 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
 import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import { StyleSheet } from 'react-native'
+import { Spinner } from 'native-base'
+import { Container, Content } from '@kausta/react-native-commons'
 
-import renderer from 'react-test-renderer'
+interface Props {}
+export default class Splash extends React.Component<Props> {
+  render() {
+    return (
+      <Container>
+        <Content style={styles.contentStyle}>
+          <Spinner />
+        </Content>
+      </Container>
+    )
+  }
+}
 
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
+const styles = StyleSheet.create({
+  contentStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })

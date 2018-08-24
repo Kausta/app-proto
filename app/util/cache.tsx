@@ -23,15 +23,20 @@
  *  @flow
  *  @format
  */
-/* eslint-env mocha */
 
-import assert from 'assert'
-import React from 'react'
-import AppWithStore from '../app/AppWithStore'
+import { Asset, Font } from 'expo'
+import { Image } from 'react-native'
 
-import renderer from 'react-test-renderer'
+export function cacheImages(images: Array<string | any>): Array<Promise<void>> {
+  return images.map((image) => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image)
+    } else {
+      return Asset.fromModule(image).downloadAsync()
+    }
+  })
+}
 
-it('renders without crashing', () => {
-  const rendered = renderer.create(<AppWithStore />).toJSON()
-  assert.ok(rendered)
-})
+export function cacheFonts(fonts: Font.FontMap[]): Array<Promise<void>> {
+  return fonts.map((font) => Font.loadAsync(font))
+}
